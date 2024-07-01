@@ -45,7 +45,12 @@
 
     // Wait for the widget to load, then open the chatbot
     window.addEventListener('load', function() {
-        setTimeout(openChatbot, 1000); // Adjust the delay as necessary
+        setTimeout(function() {
+            var widgetElement = document.getElementById('sw-widget');
+            if (widgetElement) {
+                openChatbot();
+            }
+        }, 1000); // Adjust the delay as necessary
     });
     </script>
     <!--End of NoodleFactory.ai Widget Script-->
