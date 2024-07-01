@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>NoodleFactory.ai Widget</title>
+    <style>
+        /* Ensure the whole page is hidden except the chatbot widget */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #sw-widget {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
     <!--Start of NoodleFactory.ai Widget Script-->
@@ -21,13 +34,23 @@
     // Custom script to open the chatbot automatically
     function openChatbot() {
         if ($_Widget && $_Widget.api && $_Widget.api.open) {
-            $_Widget.api.open();
+            $_Widget.api.open(); // Open the chatbot widget
         } else {
             setTimeout(openChatbot, 100); // Try again after 100ms if the API is not ready
         }
     }
-    // Call the function once the window loads
-    window.onload = openChatbot;
+
+    // Event listener to resize the iframe on click
+    window.addEventListener('load', function() {
+        // Find the widget's element to add a click listener
+        var widgetElement = document.getElementById('sw-widget');
+        if (widgetElement) {
+            widgetElement.addEventListener('click', function() {
+                window.parent.postMessage('openChat', '*');
+            });
+        }
+        setTimeout(openChatbot, 1000); // Adjust the delay as necessary
+    });
     </script>
     <!--End of NoodleFactory.ai Widget Script-->
 </body>
