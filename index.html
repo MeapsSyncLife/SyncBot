@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>NoodleFactory.ai Widget</title>
     <style>
-        /* Ensure the whole page is hidden except the chatbot widget */
+        /* Make the entire body hidden to only show the chatbot widget */
         body {
             margin: 0;
             overflow: hidden;
@@ -13,6 +13,9 @@
             position: fixed;
             bottom: 0;
             right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
             z-index: 9999;
         }
     </style>
@@ -40,15 +43,8 @@
         }
     }
 
-    // Event listener to resize the iframe on click
+    // Wait for the widget to load, then open the chatbot
     window.addEventListener('load', function() {
-        // Find the widget's element to add a click listener
-        var widgetElement = document.getElementById('sw-widget');
-        if (widgetElement) {
-            widgetElement.addEventListener('click', function() {
-                window.parent.postMessage('openChat', '*');
-            });
-        }
         setTimeout(openChatbot, 1000); // Adjust the delay as necessary
     });
     </script>
